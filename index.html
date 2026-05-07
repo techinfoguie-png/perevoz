@@ -3,60 +3,143 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Заявка на доставку сыпучих</title>
+  <meta name="description" content="Доставка песка, щебня, грунта, ПГС. Собственный автопарк, подача от 2 часов.">
+  <title>Заявка на доставку сыпучих материалов</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <style>
-    :root { --primary: #2563eb; --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; --border: #cbd5e1; --success: #dcfce7; --error: #fee2e2; }
-    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-    .container { max-width: 760px; margin: 0 auto; background: var(--card); padding: 24px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-    h1 { font-size: 1.4rem; margin: 0 0 20px; text-align: center; }
+    :root {
+      --primary: #2563eb; --primary-dark: #1d4ed8; --bg: #f1f5f9; --card: #ffffff;
+      --text: #0f172a; --text-muted: #64748b; --border: #cbd5e1;
+      --success: #dcfce7; --error: #fee2e2; --radius: 12px; --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 20px; }
+    .container { max-width: 760px; margin: 0 auto; }
+    
+    .hero { text-align: center; padding: 32px 0 24px; }
+    .hero h1 { font-size: clamp(1.4rem, 4vw, 1.8rem); margin-bottom: 12px; color: var(--primary); }
+    .hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+    
+    section { background: var(--card); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; box-shadow: var(--shadow); }
+    .section-title { font-size: 1.3rem; margin-bottom: 16px; color: var(--primary); text-align: center; }
+    .about-text { color: var(--text-muted); text-align: center; font-size: 1rem; }
+    
+    .adv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 12px; }
+    .adv-item { background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border); }
+    .adv-item h4 { font-size: 1rem; margin-bottom: 6px; color: var(--primary); }
+    .adv-item p { font-size: 0.9rem; color: var(--text-muted); }
+    
     .form-table { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .form-row label { display: block; font-weight: 500; font-size: 0.95rem; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; }
     .form-row input, .form-row select { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; font-size: 16px; box-sizing: border-box; font-family: inherit; }
     .form-row.full { grid-column: 1 / -1; }
-    .form-row.full label { border-radius: 8px 8px 0 0; margin-bottom: 0; }
-    .form-row.full textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; font-size: 16px; box-sizing: border-box; font-family: inherit; resize: vertical; }
+    .form-row.full textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; font-size: 16px; box-sizing: border-box; font-family: inherit; resize: vertical; min-height: 80px; }
     .btn { grid-column: 1 / -1; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 8px; transition: 0.2s; font-weight: 500; }
-    .btn:hover { opacity: 0.9; }
+    .btn:hover { background: var(--primary-dark); }
     .btn:disabled { opacity: 0.6; cursor: not-allowed; }
     .status { margin-top: 16px; padding: 12px; border-radius: 8px; text-align: center; display: none; font-size: 0.95rem; }
     .status.success { background: var(--success); color: #166534; }
     .status.error { background: var(--error); color: #991b1b; }
-    .note { margin-top: 16px; font-size: 0.85rem; color: #64748b; text-align: center; line-height: 1.4; }
-    @media (max-width: 600px) { .form-table { grid-template-columns: 1fr; } .form-row.full { grid-column: 1; } }
+    .note { margin-top: 16px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.4; }
+    
+    @media (max-width: 600px) {
+      .form-table { grid-template-columns: 1fr; }
+      .form-row.full { grid-column: 1; }
+      body { padding: 12px; }
+      section { padding: 20px; }
+    }
   </style>
 </head>
 <body>
 <div class="container">
-  <h1>📋 Заявка на доставку</h1>
-  <form id="orderForm" class="form-table">
-    <div class="form-row"><label>Контактное лицо / Компания</label><input type="text" id="name" required placeholder="Иванов Иван / ООО Строй"></div>
-    <div class="form-row"><label>Телефон</label><input type="tel" id="phone" required placeholder="+7 (___) ___-__-__"></div>
-    <div class="form-row"><label>Тип материала</label>
-      <select id="material"><option>Песок</option><option>Щебень</option><option>Грунт/Плодородка</option><option>ПГС</option><option>Другое</option></select>
-    </div>
-    <div class="form-row"><label>Объём или кол-во рейсов</label><input type="text" id="volume" required placeholder="Напр: 18 м³ или 3 машины"></div>
-    <div class="form-row"><label>📍 Откуда забрать (адрес загрузки)</label><input type="text" id="from_addr" required placeholder="Карьер, база, точка погрузки"></div>
-    <div class="form-row"><label>📍 Куда доставить (объект)</label><input type="text" id="to_addr" required placeholder="Адрес стройки, участок, въезд"></div>
-    <div class="form-row"><label>📅 Дата и время доставки</label><input type="datetime-local" id="delivery_time" required></div>
-    <div class="form-row"><label>Оплата</label>
-      <select id="payment"><option>Наличные</option><option>Безнал (с НДС)</option><option>Безнал (без НДС)</option><option>По договорённости</option></select>
-    </div>
-    <div class="form-row full"><label>Дополнительно (особенности подъезда, ворота, этаж, ограничения)</label><textarea id="comment" rows="3" placeholder="Укажите детали, чтобы машина проехала без задержек..."></textarea></div>
-    <button type="submit" class="btn" id="submitBtn">Отправить заявку</button>
-  </form>
-  <div id="status" class="status"></div>
-  <p class="note">⚠️ Заявка попадёт диспетчеру. Точную стоимость, время подачи и маршрут согласуем в течение 15 минут.</p>
+  <div class="hero">
+    <h1 id="hero-title">Загрузка...</h1>
+    <p id="hero-subtitle"></p>
+  </div>
+
+  <section>
+    <h2 class="section-title" id="about-title">Загрузка...</h2>
+    <p class="about-text" id="about-text"></p>
+  </section>
+
+  <section>
+    <h2 class="section-title">Почему с нами удобно</h2>
+    <div class="adv-grid" id="adv-grid"></div>
+  </section>
+
+  <section>
+    <h2 class="section-title">📋 Заявка на доставку</h2>
+    <form id="orderForm" class="form-table">
+      <div class="form-row"><label>Контактное лицо / Компания</label><input type="text" id="name" required placeholder="Иванов Иван / ООО Строй"></div>
+      <div class="form-row"><label>Телефон</label><input type="tel" id="phone" required placeholder="+7 (___) ___-__-__"></div>
+      <div class="form-row"><label>Тип материала</label>
+        <select id="material"><option>Песок</option><option>Щебень</option><option>Грунт/Плодородка</option><option>ПГС</option><option>Другое</option></select>
+      </div>
+      <div class="form-row"><label>Объём или кол-во рейсов</label><input type="text" id="volume" required placeholder="Напр: 18 м³ или 3 машины"></div>
+      <div class="form-row"><label>📍 Откуда забрать (адрес загрузки)</label><input type="text" id="from_addr" required placeholder="Карьер, база, точка погрузки"></div>
+      <div class="form-row"><label>📍 Куда доставить (объект)</label><input type="text" id="to_addr" required placeholder="Адрес стройки, участок, въезд"></div>
+      <div class="form-row"><label>📅 Дата и время доставки</label><input type="datetime-local" id="delivery_time" required></div>
+      <div class="form-row"><label>Оплата</label>
+        <select id="payment"><option>Наличные</option><option>Безнал (с НДС)</option><option>Безнал (без НДС)</option><option>По договорённости</option></select>
+      </div>
+      <div class="form-row full"><label>Дополнительно (особенности подъезда, ворота, этаж, ограничения)</label><textarea id="comment" rows="3" placeholder="Укажите детали, чтобы машина проехала без задержек..."></textarea></div>
+      <button type="submit" class="btn" id="submitBtn">Отправить заявку</button>
+    </form>
+    <div id="status" class="status"></div>
+    <p class="note">⚠️ Заявка попадёт диспетчеру. Точную стоимость, время подачи и маршрут согласуем в течение 15 минут.</p>
+  </section>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script>
-  const FORM_URL = 'https://script.google.com/macros/s/AKfycbwCuJBl5paGMAX-RhuRK1H9zmb378Qdtv3OBwB2SZEWaO2BR98LivZKlNpFB8T0ht5H0w/exec'; // ВСТАВЬ ССЫЛКУ ИЗ APPS SCRIPT
+  // 🔗 ВСТАВЬТЕ ВАШИ ССЫЛКИ
+  const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1ypDACKZCMG-yj1Kciyct6byRJFZjb9lYYERImIZkplo/edit?usp=sharing'; // Вкладка "Контент", формат CSV
+  const FORM_URL = 'https://script.google.com/macros/s/AKfycbwCuJBl5paGMAX-RhuRK1H9zmb378Qdtv3OBwB2SZEWaO2BR98LivZKlNpFB8T0ht5H0w/exec'; // URL веб-приложения Apps Script
+
+  // === 1. Загрузка контента из вкладки "Контент" ===
+  if (SHEET_CSV_URL && !SHEET_CSV_URL.includes('ВАША_ССЫЛКА')) {
+    Papa.parse(SHEET_CSV_URL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const content = {};
+        results.data.forEach(row => {
+          if (!row.Раздел || !row.Ключ) return;
+          if (!content[row.Раздел]) content[row.Раздел] = {};
+          content[row.Раздел][row.Ключ] = row.Значение?.trim() || '';
+        });
+
+        document.getElementById('hero-title').textContent = content.hero?.title || 'Доставка сыпучих материалов';
+        document.getElementById('hero-subtitle').textContent = content.hero?.subtitle || '';
+        document.getElementById('about-title').textContent = content.about?.title || 'О компании';
+        document.getElementById('about-text').textContent = content.about?.text || '';
+
+        const advGrid = document.getElementById('adv-grid');
+        const grouped = {};
+        Object.entries(content.advantages || {}).forEach(([k,v]) => {
+          const num = k.replace(/_title|_text/g, '');
+          if (!grouped[num]) grouped[num] = {};
+          grouped[num][k.replace(num+'_','')] = v;
+        });
+        Object.values(grouped).forEach((adv, i) => {
+          const item = document.createElement('div');
+          item.className = 'adv-item';
+          item.innerHTML = `<h4>${adv.title || 'Преимущество '+(i+1)}</h4><p>${adv.text || ''}</p>`;
+          advGrid.appendChild(item);
+        });
+      },
+      error: function(err) { console.warn('Не удалось загрузить контент:', err); }
+    });
+  }
+
+  // === 2. Логика формы (ваш оригинальный код) ===
   const form = document.getElementById('orderForm');
   const statusDiv = document.getElementById('status');
   const btn = document.getElementById('submitBtn');
   const phoneInput = document.getElementById('phone');
   const dateInput = document.getElementById('delivery_time');
 
-  // 1. Маска телефона
   phoneInput.addEventListener('input', function(e) {
     let val = e.target.value.replace(/\D/g, '');
     if (val.length > 0 && val[0] === '8') val = '7' + val.slice(1);
@@ -69,13 +152,11 @@
     e.target.value = formatted;
   });
 
-  // 2. Авто-дата (сегодня + 2 часа, мин. = сейчас)
   const now = new Date();
   now.setMinutes(now.getMinutes() + 120);
   dateInput.value = now.toISOString().slice(0, 16);
   dateInput.min = new Date().toISOString().slice(0, 16);
 
-  // 3. Отправка
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     btn.disabled = true;
@@ -95,12 +176,17 @@
     };
 
     try {
-      await fetch(FORM_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'text/plain'}, body: JSON.stringify(payload) });
+      await fetch(FORM_URL, { 
+        method: 'POST', 
+        mode: 'no-cors', 
+        headers: {'Content-Type':'text/plain'}, 
+        body: JSON.stringify(payload) 
+      });
       statusDiv.className = 'status success';
       statusDiv.textContent = '✅ Заявка успешно отправлена! Диспетчер свяжется с вами.';
       statusDiv.style.display = 'block';
       form.reset();
-      dateInput.value = now.toISOString().slice(0, 16); // сброс даты к дефолту
+      dateInput.value = now.toISOString().slice(0, 16);
     } catch (err) {
       statusDiv.className = 'status error';
       statusDiv.textContent = '❌ Ошибка сети. Позвоните нам напрямую.';
