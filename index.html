@@ -3,199 +3,848 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Доставка песка, щебня, грунта, ПГС. Собственный автопарк, подача от 2 часов.">
-  <title>Заявка на доставку сыпучих материалов</title>
+  <meta name="description" content="Доставка сыпучих материалов">
+  <meta name="keywords" content="доставка песка, щебень, грунт, ПГС, самосвал">
+  <meta name="author" content="Ваша компания">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="business.business">
+  <meta property="og:title" content="Доставка сыпучих материалов">
+  <meta property="og:description" content="Песок, щебень, грунт. Подача от 2 часов">
+  <meta property="og:image" content="https://i.imgur.com/your-image.jpg">
+  <meta property="og:locale" content="ru_RU">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Доставка сыпучих материалов">
+  <meta property="twitter:description" content="Песок, щебень, грунт. Подача от 2 часов">
+  
+  <title>Доставка сыпучих материалов</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚛</text></svg>">
+  
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <style>
     :root {
-      --primary: #2563eb; --primary-dark: #1d4ed8; --bg: #f1f5f9; --card: #ffffff;
-      --text: #0f172a; --text-muted: #64748b; --border: #cbd5e1;
-      --success: #dcfce7; --error: #fee2e2; --radius: 12px; --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #3b82f6;
+      --accent: #f59e0b;
+      --accent-dark: #d97706;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --error: #ef4444;
+      --radius: 16px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.5);
+    }
+    
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 20px; }
-    .container { max-width: 760px; margin: 0 auto; }
+    body { 
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+      background: var(--bg); 
+      color: var(--text); 
+      line-height: 1.6; 
+      padding: 0;
+      transition: var(--transition);
+    }
     
-    .hero { text-align: center; padding: 32px 0 24px; }
-    .hero h1 { font-size: clamp(1.4rem, 4vw, 1.8rem); margin-bottom: 12px; color: var(--primary); }
-    .hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-lg);
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .theme-toggle {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.3);
+      transform: rotate(180deg);
+    }
+    .phone-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      transition: var(--transition);
+    }
+    .phone-link:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
     
-    section { background: var(--card); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; box-shadow: var(--shadow); }
-    .section-title { font-size: 1.3rem; margin-bottom: 16px; color: var(--primary); text-align: center; }
-    .about-text { color: var(--text-muted); text-align: center; font-size: 1rem; }
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 80px 20px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 16px;
+      font-weight: 800;
+      line-height: 1.2;
+      animation: fadeInUp 0.8s ease;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 32px;
+      opacity: 0.95;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+      transition: var(--transition);
+      animation: fadeInUp 0.8s ease 0.4s both, pulse 2s infinite;
+      border: none;
+      cursor: pointer;
+    }
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
+      background: var(--accent-dark);
+    }
     
-    .adv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 12px; }
-    .adv-item { background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border); }
-    .adv-item h4 { font-size: 1rem; margin-bottom: 6px; color: var(--primary); }
-    .adv-item p { font-size: 0.9rem; color: var(--text-muted); }
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
     
-    .form-table { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .form-row label { display: block; font-weight: 500; font-size: 0.95rem; padding: 10px 14px; background: #f8fafc; border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; }
-    .form-row input, .form-row select { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; font-size: 16px; box-sizing: border-box; font-family: inherit; }
-    .form-row.full { grid-column: 1 / -1; }
-    .form-row.full textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; font-size: 16px; box-sizing: border-box; font-family: inherit; resize: vertical; min-height: 80px; }
-    .btn { grid-column: 1 / -1; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 8px; transition: 0.2s; font-weight: 500; }
-    .btn:hover { background: var(--primary-dark); }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .status { margin-top: 16px; padding: 12px; border-radius: 8px; text-align: center; display: none; font-size: 0.95rem; }
-    .status.success { background: var(--success); color: #166534; }
-    .status.error { background: var(--error); color: #991b1b; }
-    .note { margin-top: 16px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.4; }
+    /* Sections */
+    section {
+      padding: 60px 0;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: var(--primary);
+      text-align: center;
+      font-weight: 700;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
     
-    @media (max-width: 600px) {
+    /* About */
+    .about {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow);
+      margin: -60px auto 40px;
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+    }
+    .about-text {
+      color: var(--text-muted);
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    /* Advantages */
+    .adv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .adv-card {
+      background: var(--card);
+      padding: 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .adv-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .adv-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
+    }
+    .adv-card:hover::before {
+      transform: scaleX(1);
+    }
+    .adv-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .adv-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .adv-card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    /* Gallery */
+    .gallery {
+      background: linear-gradient(to bottom, var(--bg), var(--card));
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      padding: 20px;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+    .gallery-overlay p {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    
+    /* Form Section */
+    .form-section {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .form-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-row label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--text);
+      transition: var(--transition);
+    }
+    .form-row input:focus,
+    .form-row select:focus,
+    .form-row textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+    .form-row.full {
+      grid-column: 1 / -1;
+    }
+    .form-row textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .btn-submit {
+      grid-column: 1 / -1;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 8px;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+    }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .status {
+      grid-column: 1 / -1;
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      display: none;
+      font-weight: 600;
+      animation: fadeIn 0.3s;
+    }
+    .status.success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 2px solid var(--success);
+    }
+    .status.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 2px solid var(--error);
+    }
+    .note {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 16px;
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      margin-top: 60px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .footer-phone {
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-block;
+      margin: 16px 0;
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4); }
+      50% { box-shadow: 0 10px 40px rgba(245, 158, 11, 0.6); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
       .form-table { grid-template-columns: 1fr; }
-      .form-row.full { grid-column: 1; }
-      body { padding: 12px; }
-      section { padding: 20px; }
+      .header-content { flex-direction: column; gap: 12px; }
+      .phone-link { display: none; }
+      .hero { padding: 60px 20px 80px; }
+      .about { margin: -40px 20px 40px; padding: 24px; }
+      section { padding: 40px 0; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+    
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="hero">
-    <h1 id="hero-title">Загрузка...</h1>
-    <p id="hero-subtitle"></p>
+  <header>
+    <div class="header-content">
+      <div class="logo">🚛 <span id="header-title">Доставка сыпучих</span></div>
+      <div class="header-controls">
+        <button class="theme-toggle" id="themeToggle" title="Сменить тему">🌙</button>
+        <a href="tel:+79991234567" class="phone-link" id="header-phone">📞 +7 (999) 123-45-67</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 id="hero-title">Загрузка...</h1>
+      <p id="hero-subtitle"></p>
+      <a href="#order" class="hero-cta" id="hero-cta">📋 Оставить заявку</a>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="about">
+      <h2 class="section-title" id="about-title">Загрузка...</h2>
+      <p class="about-text" id="about-text"></p>
+    </div>
   </div>
 
-  <section>
-    <h2 class="section-title" id="about-title">Загрузка...</h2>
-    <p class="about-text" id="about-text"></p>
+  <section id="advantages">
+    <div class="container">
+      <h2 class="section-title">Почему выбирают нас</h2>
+      <p class="section-subtitle">Работаем быстро, честно и надёжно</p>
+      <div class="adv-grid" id="adv-grid"></div>
+    </div>
   </section>
 
-  <section>
-    <h2 class="section-title">Почему с нами удобно</h2>
-    <div class="adv-grid" id="adv-grid"></div>
+  <section class="gallery" id="gallery-section">
+    <div class="container">
+      <h2 class="section-title">Наш автопарк и работа</h2>
+      <p class="section-subtitle">Современная техника и профессиональный подход</p>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
   </section>
 
-  <section>
-    <h2 class="section-title">📋 Заявка на доставку</h2>
-    <form id="orderForm" class="form-table">
-      <div class="form-row"><label>Контактное лицо / Компания</label><input type="text" id="name" required placeholder="Иванов Иван / ООО Строй"></div>
-      <div class="form-row"><label>Телефон</label><input type="tel" id="phone" required placeholder="+7 (___) ___-__-__"></div>
-      <div class="form-row"><label>Тип материала</label>
-        <select id="material"><option>Песок</option><option>Щебень</option><option>Грунт/Плодородка</option><option>ПГС</option><option>Другое</option></select>
+  <section id="order">
+    <div class="container">
+      <div class="form-section">
+        <h2 class="section-title">📋 Заявка на доставку</h2>
+        <p class="section-subtitle">Заполните форму — мы перезвоним через 5 минут</p>
+        <form id="orderForm" class="form-table">
+          <div class="form-row">
+            <label>Контактное лицо / Компания *</label>
+            <input type="text" id="name" required placeholder="Иванов Иван / ООО Строй">
+          </div>
+          <div class="form-row">
+            <label>Телефон *</label>
+            <input type="tel" id="phone" required placeholder="+7 (___) ___-__-__">
+          </div>
+          <div class="form-row">
+            <label>Тип материала</label>
+            <select id="material">
+              <option>Песок</option>
+              <option>Щебень</option>
+              <option>Грунт/Плодородка</option>
+              <option>ПГС</option>
+              <option>Другое</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Объём или кол-во рейсов *</label>
+            <input type="text" id="volume" required placeholder="Напр: 18 м³ или 3 машины">
+          </div>
+          <div class="form-row">
+            <label>📍 Откуда забрать *</label>
+            <input type="text" id="from_addr" required placeholder="Карьер, база, точка погрузки">
+          </div>
+          <div class="form-row">
+            <label>📍 Куда доставить *</label>
+            <input type="text" id="to_addr" required placeholder="Адрес стройки, участок, въезд">
+          </div>
+          <div class="form-row">
+            <label>📅 Дата и время доставки *</label>
+            <input type="datetime-local" id="delivery_time" required>
+          </div>
+          <div class="form-row">
+            <label>Оплата</label>
+            <select id="payment">
+              <option>Наличные</option>
+              <option>Безнал (с НДС)</option>
+              <option>Безнал (без НДС)</option>
+              <option>По договорённости</option>
+            </select>
+          </div>
+          <div class="form-row full">
+            <label>Дополнительно (особенности подъезда, ворота, этаж)</label>
+            <textarea id="comment" placeholder="Укажите детали, чтобы машина проехала без задержек..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">🚀 Отправить заявку</button>
+          <div id="status" class="status"></div>
+          <div class="note">⚠️ Заявка попадёт диспетчеру. Точную стоимость и время подачи согласуем в течение 15 минут.</div>
+        </form>
       </div>
-      <div class="form-row"><label>Объём или кол-во рейсов</label><input type="text" id="volume" required placeholder="Напр: 18 м³ или 3 машины"></div>
-      <div class="form-row"><label>📍 Откуда забрать (адрес загрузки)</label><input type="text" id="from_addr" required placeholder="Карьер, база, точка погрузки"></div>
-      <div class="form-row"><label>📍 Куда доставить (объект)</label><input type="text" id="to_addr" required placeholder="Адрес стройки, участок, въезд"></div>
-      <div class="form-row"><label>📅 Дата и время доставки</label><input type="datetime-local" id="delivery_time" required></div>
-      <div class="form-row"><label>Оплата</label>
-        <select id="payment"><option>Наличные</option><option>Безнал (с НДС)</option><option>Безнал (без НДС)</option><option>По договорённости</option></select>
-      </div>
-      <div class="form-row full"><label>Дополнительно (особенности подъезда, ворота, этаж, ограничения)</label><textarea id="comment" rows="3" placeholder="Укажите детали, чтобы машина проехала без задержек..."></textarea></div>
-      <button type="submit" class="btn" id="submitBtn">Отправить заявку</button>
-    </form>
-    <div id="status" class="status"></div>
-    <p class="note">⚠️ Заявка попадёт диспетчеру. Точную стоимость, время подачи и маршрут согласуем в течение 15 минут.</p>
+    </div>
   </section>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-<script>
-  // 🔗 ВСТАВЬТЕ ВАШИ ССЫЛКИ
-  const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzIw_zsuQdH0cVb_6zHoAoRIJClJWdYO8UwbDtFPOHswVCBazep5c1WJ0IoMlFJl-LC1sJBDFfSCso/pub?gid=140273460&single=true&output=csv'; // Вкладка "Контент", формат CSV
-  const FORM_URL = 'https://script.google.com/macros/s/AKfycbwCuJBl5paGMAX-RhuRK1H9zmb378Qdtv3OBwB2SZEWaO2BR98LivZKlNpFB8T0ht5H0w/exec'; // URL веб-приложения Apps Script
+  <footer>
+    <div class="footer-content">
+      <div class="logo" style="justify-content: center; margin-bottom: 16px;">🚛 <span id="footer-title">Доставка сыпучих</span></div>
+      <a href="tel:+79991234567" class="footer-phone" id="footer-phone">+7 (999) 123-45-67</a>
+      <p id="footer-text">Работаем ежедневно с 8:00 до 20:00</p>
+      <p style="margin-top: 24px; font-size: 0.9rem;">&copy; <span id="year"></span> Все права защищены</p>
+    </div>
+  </footer>
 
-  // === 1. Загрузка контента из вкладки "Контент" ===
-  if (SHEET_CSV_URL && !SHEET_CSV_URL.includes('ВАША_ССЫЛКА')) {
-    Papa.parse(SHEET_CSV_URL, {
-      download: true,
-      header: true,
-      complete: function(results) {
-        const content = {};
-        results.data.forEach(row => {
-          if (!row.Раздел || !row.Ключ) return;
-          if (!content[row.Раздел]) content[row.Раздел] = {};
-          content[row.Раздел][row.Ключ] = row.Значение?.trim() || '';
-        });
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img src="" alt="" id="lightbox-img">
+  </div>
 
-        document.getElementById('hero-title').textContent = content.hero?.title || 'Доставка сыпучих материалов';
-        document.getElementById('hero-subtitle').textContent = content.hero?.subtitle || '';
-        document.getElementById('about-title').textContent = content.about?.title || 'О компании';
-        document.getElementById('about-text').textContent = content.about?.text || '';
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script>
+     // 🔗 ВСТАВЬТЕ ВАШИ ССЫЛКИ
+    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzIw_zsuQdH0cVb_6zHoAoRIJClJWdYO8UwbDtFPOHswVCBazep5c1WJ0IoMlFJl-LC1sJBDFfSCso/pub?gid=140273460&single=true&output=csv'; // Вкладка "Контент", формат CSV
+    const FORM_URL = 'https://script.google.com/macros/s/AKfycbwCuJBl5paGMAX-RhuRK1H9zmb378Qdtv3OBwB2SZEWaO2BR98LivZKlNpFB8T0ht5H0w/exec'; // URL веб-приложения Apps Script
+    // === 1. Тема оформления ===
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
 
-        const advGrid = document.getElementById('adv-grid');
-        const grouped = {};
-        Object.entries(content.advantages || {}).forEach(([k,v]) => {
-          const num = k.replace(/_title|_text/g, '');
-          if (!grouped[num]) grouped[num] = {};
-          grouped[num][k.replace(num+'_','')] = v;
-        });
-        Object.values(grouped).forEach((adv, i) => {
-          const item = document.createElement('div');
-          item.className = 'adv-item';
-          item.innerHTML = `<h4>${adv.title || 'Преимущество '+(i+1)}</h4><p>${adv.text || ''}</p>`;
-          advGrid.appendChild(item);
-        });
-      },
-      error: function(err) { console.warn('Не удалось загрузить контент:', err); }
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
     });
-  }
 
-  // === 2. Логика формы (ваш оригинальный код) ===
-  const form = document.getElementById('orderForm');
-  const statusDiv = document.getElementById('status');
-  const btn = document.getElementById('submitBtn');
-  const phoneInput = document.getElementById('phone');
-  const dateInput = document.getElementById('delivery_time');
-
-  phoneInput.addEventListener('input', function(e) {
-    let val = e.target.value.replace(/\D/g, '');
-    if (val.length > 0 && val[0] === '8') val = '7' + val.slice(1);
-    if (val.length > 0 && val[0] !== '7') val = '7' + val;
-    let formatted = '+7';
-    if (val.length > 1) formatted += ' (' + val.slice(1, 4);
-    if (val.length >= 4) formatted += ') ' + val.slice(4, 7);
-    if (val.length >= 7) formatted += '-' + val.slice(7, 9);
-    if (val.length >= 9) formatted += '-' + val.slice(9, 11);
-    e.target.value = formatted;
-  });
-
-  const now = new Date();
-  now.setMinutes(now.getMinutes() + 120);
-  dateInput.value = now.toISOString().slice(0, 16);
-  dateInput.min = new Date().toISOString().slice(0, 16);
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = 'Отправка...';
-    statusDiv.style.display = 'none';
-
-    const payload = {
-      name: document.getElementById('name').value,
-      phone: phoneInput.value,
-      material: document.getElementById('material').value,
-      volume: document.getElementById('volume').value,
-      from_addr: document.getElementById('from_addr').value,
-      to_addr: document.getElementById('to_addr').value,
-      delivery_time: dateInput.value.replace('T', ' '),
-      payment: document.getElementById('payment').value,
-      comment: document.getElementById('comment').value
-    };
-
-    try {
-      await fetch(FORM_URL, { 
-        method: 'POST', 
-        mode: 'no-cors', 
-        headers: {'Content-Type':'text/plain'}, 
-        body: JSON.stringify(payload) 
-      });
-      statusDiv.className = 'status success';
-      statusDiv.textContent = '✅ Заявка успешно отправлена! Диспетчер свяжется с вами.';
-      statusDiv.style.display = 'block';
-      form.reset();
-      dateInput.value = now.toISOString().slice(0, 16);
-    } catch (err) {
-      statusDiv.className = 'status error';
-      statusDiv.textContent = '❌ Ошибка сети. Позвоните нам напрямую.';
-      statusDiv.style.display = 'block';
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Отправить заявку';
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
     }
-  });
-</script>
+
+    // === 2. Загрузка контента ===
+    if (SHEET_CSV_URL && !SHEET_CSV_URL.includes('ВАША_ССЫЛКА')) {
+      Papa.parse(SHEET_CSV_URL, {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const content = {};
+          results.data.forEach(row => {
+            if (!row.Раздел || !row.Ключ) return;
+            if (!content[row.Раздел]) content[row.Раздел] = {};
+            content[row.Раздел][row.Ключ] = row.Значение?.trim() || '';
+          });
+
+          // SEO
+          if (content.seo?.title) {
+            document.title = content.seo.title;
+            document.querySelector('meta[property="og:title"]').content = content.seo.title;
+            document.querySelector('meta[name="description"]').content = content.seo.description || '';
+          }
+
+          // Settings (цвета)
+          if (content.settings?.primary_color) {
+            document.documentElement.style.setProperty('--primary', content.settings.primary_color);
+          }
+          if (content.settings?.accent_color) {
+            document.documentElement.style.setProperty('--accent', content.settings.accent_color);
+          }
+
+          // Hero
+          document.getElementById('hero-title').textContent = content.hero?.title || 'Доставка сыпучих материалов';
+          document.getElementById('hero-subtitle').textContent = content.hero?.subtitle || '';
+          document.getElementById('hero-cta').textContent = content.hero?.cta || '📋 Оставить заявку';
+          document.getElementById('header-title').textContent = content.settings?.company_name || 'Доставка сыпучих';
+          document.getElementById('footer-title').textContent = content.settings?.company_name || 'Доставка сыпучих';
+
+          // About
+          document.getElementById('about-title').textContent = content.about?.title || 'О компании';
+          document.getElementById('about-text').textContent = content.about?.text || '';
+
+          // Advantages (с иконками)
+          const advGrid = document.getElementById('adv-grid');
+          const advIcons = ['🚚', '⏱️', '💰', '📋', '️', '✅'];
+          const groupedAdv = {};
+          Object.entries(content.advantages || {}).forEach(([k,v]) => {
+            const num = k.replace(/_title|_text|_icon/g, '');
+            if (!groupedAdv[num]) groupedAdv[num] = {};
+            groupedAdv[num][k.replace(num+'_','')] = v;
+          });
+          let iconIndex = 0;
+          Object.values(groupedAdv).forEach((adv, i) => {
+            const card = document.createElement('div');
+            card.className = 'adv-card';
+            const icon = adv.icon || advIcons[iconIndex % advIcons.length];
+            card.innerHTML = `
+              <span class="adv-icon">${icon}</span>
+              <h3>${adv.title || 'Преимущество '+(i+1)}</h3>
+              <p>${adv.text || ''}</p>
+            `;
+            advGrid.appendChild(card);
+            iconIndex++;
+          });
+
+          // Gallery
+          const galleryGrid = document.getElementById('gallery-grid');
+          const groupedGal = {};
+          Object.entries(content.gallery || {}).forEach(([k,v]) => {
+            const num = k.replace(/_url|_caption/g, '');
+            if (!groupedGal[num]) groupedGal[num] = {};
+            groupedGal[num][k.replace(num+'_','')] = v;
+          });
+          Object.entries(groupedGal).sort((a,b)=>a[0]-b[0]).forEach(([,g]) => {
+            if (!g.url) return;
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.innerHTML = `
+              <img src="${g.url}" alt="${g.caption || 'Фото'}" loading="lazy">
+              <div class="gallery-overlay"><p>${g.caption || ''}</p></div>
+            `;
+            item.onclick = () => openLightbox(g.url, g.caption);
+            galleryGrid.appendChild(item);
+          });
+
+          // Контакты
+          const phone = content.settings?.phone || content.seo?.phone_meta || '+79991234567';
+          const formattedPhone = formatPhone(phone);
+          document.getElementById('header-phone').textContent = `📞 ${formattedPhone}`;
+          document.getElementById('header-phone').href = `tel:${phone}`;
+          document.getElementById('footer-phone').textContent = formattedPhone;
+          document.getElementById('footer-phone').href = `tel:${phone}`;
+          document.getElementById('footer-text').textContent = content.settings?.work_hours || 'Работаем ежедневно с 8:00 до 20:00';
+        },
+        error: function(err) {
+          console.error('Ошибка загрузки:', err);
+        }
+      });
+    }
+
+    function formatPhone(phone) {
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length === 11 && digits[0] === '7') {
+        return `+7 (${digits.slice(1,4)}) ${digits.slice(4,7)}-${digits.slice(7,9)}-${digits.slice(9)}`;
+      }
+      return phone;
+    }
+
+    // === 3. Lightbox ===
+    function openLightbox(src, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-img').alt = caption;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox') closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // === 4. Форма (ваш код) ===
+    const form = document.getElementById('orderForm');
+    const statusDiv = document.getElementById('status');
+    const btn = document.getElementById('submitBtn');
+    const phoneInput = document.getElementById('phone');
+    const dateInput = document.getElementById('delivery_time');
+
+    phoneInput.addEventListener('input', function(e) {
+      let val = e.target.value.replace(/\D/g, '');
+      if (val.length > 0 && val[0] === '8') val = '7' + val.slice(1);
+      if (val.length > 0 && val[0] !== '7') val = '7' + val;
+      let formatted = '+7';
+      if (val.length > 1) formatted += ' (' + val.slice(1, 4);
+      if (val.length >= 4) formatted += ') ' + val.slice(4, 7);
+      if (val.length >= 7) formatted += '-' + val.slice(7, 9);
+      if (val.length >= 9) formatted += '-' + val.slice(9, 11);
+      e.target.value = formatted;
+    });
+
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 120);
+    dateInput.value = now.toISOString().slice(0, 16);
+    dateInput.min = new Date().toISOString().slice(0, 16);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = '⏳ Отправка...';
+      statusDiv.style.display = 'none';
+
+      const payload = {
+        name: document.getElementById('name').value,
+        phone: phoneInput.value,
+        material: document.getElementById('material').value,
+        volume: document.getElementById('volume').value,
+        from_addr: document.getElementById('from_addr').value,
+        to_addr: document.getElementById('to_addr').value,
+        delivery_time: dateInput.value.replace('T', ' '),
+        payment: document.getElementById('payment').value,
+        comment: document.getElementById('comment').value
+      };
+
+      try {
+        await fetch(FORM_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {'Content-Type':'text/plain'},
+          body: JSON.stringify(payload)
+        });
+        statusDiv.className = 'status success';
+        statusDiv.textContent = '✅ Заявка успешно отправлена! Мы перезвоним вам в течение 5 минут.';
+        statusDiv.style.display = 'block';
+        form.reset();
+        dateInput.value = now.toISOString().slice(0, 16);
+        setTimeout(() => {
+          statusDiv.style.display = 'none';
+        }, 5000);
+      } catch (err) {
+        statusDiv.className = 'status error';
+        statusDiv.textContent = '❌ Ошибка отправки. Позвоните нам напрямую.';
+        statusDiv.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🚀 Отправить заявку';
+      }
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
